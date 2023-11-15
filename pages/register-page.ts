@@ -1,6 +1,6 @@
 import { type Locator, type Page } from '@playwright/test';
 
-export class RegisterPage {
+export class RegistrationPage {
   readonly page: Page
   readonly firstName: Locator
   readonly lastName: Locator
@@ -13,6 +13,7 @@ export class RegisterPage {
   readonly username: Locator
   readonly password: Locator
   readonly confirm: Locator
+  readonly registerButton: Locator
 
 
   constructor(page: Page) {
@@ -27,6 +28,11 @@ export class RegisterPage {
     this.ssn = page.locator('id=customer.ssn')
     this.username = page.locator('id=customer.username')
     this.password = page.locator('id=customer.password')
-    this.confirm = page.locator('id=customer.repeatedPassword')
+    this.confirm = page.locator('id=repeatedPassword')
+    this.registerButton = page.locator('input[value="Register"]')
+  }
+
+  async goto(url) {
+    await this.page.goto(url)
   }
 }
