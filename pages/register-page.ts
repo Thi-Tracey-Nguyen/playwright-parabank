@@ -14,6 +14,7 @@ export class RegistrationPage {
   readonly password: Locator
   readonly confirm: Locator
   readonly registerButton: Locator
+  readonly logout: Locator
 
 
   constructor(page: Page) {
@@ -30,6 +31,7 @@ export class RegistrationPage {
     this.password = page.locator('id=customer.password')
     this.confirm = page.locator('id=repeatedPassword')
     this.registerButton = page.locator('input[value="Register"]')
+    this.logout = page.getByRole('link', {name: 'Log Out'})
   }
 
   async goto(url) {

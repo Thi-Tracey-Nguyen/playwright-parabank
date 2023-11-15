@@ -10,7 +10,7 @@ const testUser = {
   zipCode: '90210',
   phone: '0452641700',
   ssn: '345275566',
-  username: 'traceynguyen5',
+  username: 'traceynguyen6',
   password: 'traceytest123',
   confirm: 'traceytest123'
 }
@@ -35,4 +35,6 @@ test('sucessful registration', async({ page }) => {
 
   await expect(page.getByRole('heading', { name: `Welcome ${testUser.username}` })).toBeVisible()
   await expect(page.getByText('Your account was created successfully. You are now logged in.')).toBeVisible()
+
+  await registrationPage.logout.click()
 })
