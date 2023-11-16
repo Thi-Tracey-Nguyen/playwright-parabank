@@ -1,18 +1,18 @@
 import { test, expect } from '@playwright/test'
 import { RegistrationPage } from '../pages/register-page'
+import { faker } from '@faker-js/faker'
 
 const testUser = {
-  firstName: 'Tracey',
-  lastName: 'Nguyen',
+  firstName: faker.person.firstName(),
+  lastName: faker.person.lastName(),
   address: '8 McMurray Street', 
   city: 'Melbourne',
   state: 'Victoria',
   zipCode: '90210',
-  phone: '0452641700',
-  ssn: '345275566',
-  username: 'traceynguyen6',
-  password: 'traceytest123',
-  confirm: 'traceytest123'
+  phone: faker.phone.number('04########'),
+  ssn: faker.string.numeric(9),
+  password: 'traceytest123', 
+  randomNumber: faker.string.numeric(3)
 }
 
 test('sucessful registration', async({ page }) => {
@@ -27,13 +27,13 @@ test('sucessful registration', async({ page }) => {
   await registrationPage.zipCode.fill(testUser.zipCode)
   await registrationPage.phone.fill(testUser.phone)
   await registrationPage.ssn.fill(testUser.ssn)
-  await registrationPage.username.fill(testUser.username)
+  await registrationPage.username.fill(testUser.firstName + testUser.randomNumber)
   await registrationPage.password.fill(testUser.password)
-  await registrationPage.confirm.fill(testUser.confirm)
+  await registrationPage.confirm.fill(testUser.password)
 
   await registrationPage.registerButton.click()
 
-  await expect(page.getByRole('heading', { name: `Welcome ${testUser.username}` })).toBeVisible()
+  await expect(page.getByRole('heading', { name: `Welcome ${testUser.firstName + testUser.randomNumber}` })).toBeVisible()
   await expect(page.getByText('Your account was created successfully. You are now logged in.')).toBeVisible()
 
   await registrationPage.logout.click()
